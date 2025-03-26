@@ -1,0 +1,64 @@
+/* src/styles/global.css */
+@import './fonts.css';
+@import './components.css';
+
+:root {
+  --color-primary: #C8102E; /* AS Monaco red */
+  --color-secondary: #FFFFFF;
+  --color-tertiary: #000000;
+  --color-background: #FCFCFC;
+  --color-light-gray: #F5F5F5;
+  --color-dark-gray: #555555;
+  --color-text-primary: #222222;
+  --color-text-secondary: #777777;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  line-height: 1.1;
+}
+
+button {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+/* Metric selector button styles used across components */
+.metric-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.metric-button {
+  padding: 8px 16px;
+  background-color: var(--color-light-gray);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  transition: all 0.2s ease;
+}
+
+.metric-button:hover {
+  background-color: #EBEBEB;
+}
+
+.metric-button.active {
+    background-color: var(--color-primary);
+    color: white;
+  }

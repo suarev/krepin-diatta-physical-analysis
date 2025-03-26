@@ -1,0 +1,29 @@
+/* Metric selector button styles used across components */
+.metric-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .metric-button {
+    padding: 8px 16px;
+    background-color: #eee;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    transition: all 0.2s ease;
+    font-family: 'Benton Sans', 'Source Sans Pro', sans-serif;
+  }
+  
+  .metric-button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .metric-button.active {
+    background-color: #004D99;
+    color: white;
+  }
