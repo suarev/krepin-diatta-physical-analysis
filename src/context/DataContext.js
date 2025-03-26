@@ -1,5 +1,5 @@
 // src/context/DataContext.js
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import Papa from 'papaparse';
 import { formatNumber } from '../utils/formatting';
 
@@ -239,6 +239,26 @@ export const DataProvider = ({ children }) => {
       return fullData.filter(item => item['Position Group'] === selectedPosition);
     }
   };
+  
+  // Auto-load data when component mounts
+  useEffect(() => {
+    const loadInitialData = async () => {
+      try {
+        // Fetch the CSV file from the public folder
+        const response = await fetch('/data/K. Diatta.csv');
+        if (!response.ok) {
+          throw new Error(`Failed to fetch CSV: ${response.status} ${response.statusText}`);
+        }
+        
+        const csvData = await response.text();
+        processData(csvData);
+      } catch (error) {
+        console.error('Error loading CSV data:', error);
+      }
+    };
+
+    loadInitialData();
+  }, []);
   
   // Context value
   const value = {
