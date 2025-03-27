@@ -391,43 +391,53 @@ const OverallSummary = () => {
   const highlights = {
     topSpeed: {
       match: [...fullData].sort((a, b) => (parseFloat(b['PSV-99']) || 0) - (parseFloat(a['PSV-99']) || 0))[0],
-      avgValue: calcAverage('PSV-99')
+      avgValue: calcAverage('PSV-99'),
+      maxValue: Math.max(...fullData.map(row => parseFloat(row['PSV-99']) || 0).filter(val => !isNaN(val)))
     },
     highestDistance: {
       match: [...fullData].sort((a, b) => (parseFloat(b.Distance) || 0) - (parseFloat(a.Distance) || 0))[0],
-      avgValue: calcAverage('Distance')
+      avgValue: calcAverage('Distance'),
+      maxValue: Math.max(...fullData.map(row => parseFloat(row.Distance) || 0).filter(val => !isNaN(val)))
     },
     mostSprints: {
       match: [...fullData].sort((a, b) => (parseFloat(b['Sprint Count']) || 0) - (parseFloat(a['Sprint Count']) || 0))[0],
-      avgValue: calcAverage('Sprint Count')
+      avgValue: calcAverage('Sprint Count'),
+      maxValue: Math.max(...fullData.map(row => parseFloat(row['Sprint Count']) || 0).filter(val => !isNaN(val)))
     },
     highestHSR: {
       match: [...fullData].sort((a, b) => (parseFloat(b['HSR Distance']) || 0) - (parseFloat(a['HSR Distance']) || 0))[0],
-      avgValue: calcAverage('HSR Distance')
+      avgValue: calcAverage('HSR Distance'),
+      maxValue: Math.max(...fullData.map(row => parseFloat(row['HSR Distance']) || 0).filter(val => !isNaN(val)))
     },
     highestAccel: {
       match: [...fullData].sort((a, b) => (parseFloat(b['High Acceleration Count']) || 0) - (parseFloat(a['High Acceleration Count']) || 0))[0],
-      avgValue: calcAverage('High Acceleration Count')
+      avgValue: calcAverage('High Acceleration Count'),
+      maxValue: Math.max(...fullData.map(row => parseFloat(row['High Acceleration Count']) || 0).filter(val => !isNaN(val)))
     },
     mediumAccel: {
       match: [...fullData].sort((a, b) => (parseFloat(b['Medium Acceleration Count']) || 0) - (parseFloat(a['Medium Acceleration Count']) || 0))[0],
-      avgValue: calcAverage('Medium Acceleration Count')
+      avgValue: calcAverage('Medium Acceleration Count'),
+      maxValue: Math.max(...fullData.map(row => parseFloat(row['Medium Acceleration Count']) || 0).filter(val => !isNaN(val)))
     },
     explosiveAccelHSR: {
       match: [...fullData].sort((a, b) => (parseFloat(b['Explosive Acceleration to HSR Count']) || 0) - (parseFloat(a['Explosive Acceleration to HSR Count']) || 0))[0],
-      avgValue: calcAverage('Explosive Acceleration to HSR Count')
+      avgValue: calcAverage('Explosive Acceleration to HSR Count'),
+      maxValue: Math.max(...fullData.map(row => parseFloat(row['Explosive Acceleration to HSR Count']) || 0).filter(val => !isNaN(val)))
     },
     explosiveAccelSprint: {
       match: [...fullData].sort((a, b) => (parseFloat(b['Explosive Acceleration to Sprint Count']) || 0) - (parseFloat(a['Explosive Acceleration to Sprint Count']) || 0))[0],
-      avgValue: calcAverage('Explosive Acceleration to Sprint Count')
+      avgValue: calcAverage('Explosive Acceleration to Sprint Count'),
+      maxValue: Math.max(...fullData.map(row => parseFloat(row['Explosive Acceleration to Sprint Count']) || 0).filter(val => !isNaN(val)))
     },
     highestDecel: {
       match: [...fullData].sort((a, b) => (parseFloat(b['High Deceleration Count']) || 0) - (parseFloat(a['High Deceleration Count']) || 0))[0],
-      avgValue: calcAverage('High Deceleration Count')
+      avgValue: calcAverage('High Deceleration Count'),
+      maxValue: Math.max(...fullData.map(row => parseFloat(row['High Deceleration Count']) || 0).filter(val => !isNaN(val)))
     },
     mostHI: {
       match: [...fullData].sort((a, b) => (parseFloat(b['HI Count']) || 0) - (parseFloat(a['HI Count']) || 0))[0],
-      avgValue: calcAverage('HI Count')
+      avgValue: calcAverage('HI Count'),
+      maxValue: Math.max(...fullData.map(row => parseFloat(row['HI Count']) || 0).filter(val => !isNaN(val)))
     }
   };
 
@@ -566,7 +576,7 @@ const OverallSummary = () => {
             <BarContainer>
               <BarBackground />
               <BarFill 
-                percentage={Math.min((safeGetValue(highlights.topSpeed.match['PSV-99']) / 35) * 100, 100)} 
+                percentage={Math.min((safeGetValue(highlights.topSpeed.avgValue) / safeGetValue(highlights.topSpeed.maxValue)) * 100, 100)} 
                 color={metricColors[0]}
               />
             </BarContainer>
@@ -586,7 +596,7 @@ const OverallSummary = () => {
             <BarContainer>
               <BarBackground />
               <BarFill 
-                percentage={Math.min((safeGetValue(highlights.highestDistance.match.Distance) / 12000) * 100, 100)} 
+                percentage={Math.min((safeGetValue(highlights.highestDistance.avgValue) / safeGetValue(highlights.highestDistance.maxValue)) * 100, 100)} 
                 color={metricColors[1]}
               />
             </BarContainer>
@@ -606,7 +616,7 @@ const OverallSummary = () => {
             <BarContainer>
               <BarBackground />
               <BarFill 
-                percentage={Math.min((safeGetValue(highlights.mostSprints.match['Sprint Count']) / 20) * 100, 100)} 
+                percentage={Math.min((safeGetValue(highlights.mostSprints.avgValue) / safeGetValue(highlights.mostSprints.maxValue)) * 100, 100)} 
                 color={metricColors[2]}
               />
             </BarContainer>
@@ -626,7 +636,7 @@ const OverallSummary = () => {
             <BarContainer>
               <BarBackground />
               <BarFill 
-                percentage={Math.min((safeGetValue(highlights.highestHSR.match['HSR Distance']) / 1000) * 100, 100)} 
+                percentage={Math.min((safeGetValue(highlights.highestHSR.avgValue) / safeGetValue(highlights.highestHSR.maxValue)) * 100, 100)} 
                 color={metricColors[3]}
               />
             </BarContainer>
@@ -646,7 +656,7 @@ const OverallSummary = () => {
             <BarContainer>
               <BarBackground />
               <BarFill 
-                percentage={Math.min((safeGetValue(highlights.highestAccel.match['High Acceleration Count']) / 20) * 100, 100)} 
+                percentage={Math.min((safeGetValue(highlights.highestAccel.avgValue) / safeGetValue(highlights.highestAccel.maxValue)) * 100, 100)} 
                 color={metricColors[4]}
               />
             </BarContainer>
@@ -666,7 +676,7 @@ const OverallSummary = () => {
             <BarContainer>
               <BarBackground />
               <BarFill 
-                percentage={Math.min((safeGetValue(highlights.mediumAccel.match['Medium Acceleration Count']) / 40) * 100, 100)} 
+                percentage={Math.min((safeGetValue(highlights.mediumAccel.avgValue) / safeGetValue(highlights.mediumAccel.maxValue)) * 100, 100)} 
                 color={metricColors[5]}
               />
             </BarContainer>
@@ -686,7 +696,7 @@ const OverallSummary = () => {
             <BarContainer>
               <BarBackground />
               <BarFill 
-                percentage={Math.min((safeGetValue(highlights.explosiveAccelHSR.match['Explosive Acceleration to HSR Count']) / 15) * 100, 100)} 
+                percentage={Math.min((safeGetValue(highlights.explosiveAccelHSR.avgValue) / safeGetValue(highlights.explosiveAccelHSR.maxValue)) * 100, 100)} 
                 color={metricColors[6]}
               />
             </BarContainer>
@@ -706,9 +716,9 @@ const OverallSummary = () => {
             <BarContainer>
               <BarBackground />
               <BarFill 
-                percentage={Math.min((safeGetValue(highlights.explosiveAccelSprint.match['Explosive Acceleration to Sprint Count']) / 15) * 100, 100)} 
+                percentage={Math.min((safeGetValue(highlights.explosiveAccelSprint.avgValue) / safeGetValue(highlights.explosiveAccelSprint.maxValue)) * 100, 100)} 
                 color={metricColors[7]}
-              />
+                />
             </BarContainer>
             <HighlightDetails>
               vs {highlights.explosiveAccelSprint.match?.Match || 'N/A'} ({formatDate(highlights.explosiveAccelSprint.match?.Date) || 'N/A'})
@@ -726,7 +736,7 @@ const OverallSummary = () => {
             <BarContainer>
               <BarBackground />
               <BarFill 
-                percentage={Math.min((safeGetValue(highlights.highestDecel.match['High Deceleration Count']) / 25) * 100, 100)} 
+                percentage={Math.min((safeGetValue(highlights.highestDecel.avgValue) / safeGetValue(highlights.highestDecel.maxValue)) * 100, 100)} 
                 color={metricColors[8]}
               />
             </BarContainer>
@@ -746,7 +756,7 @@ const OverallSummary = () => {
             <BarContainer>
               <BarBackground />
               <BarFill 
-                percentage={Math.min((safeGetValue(highlights.mostHI.match['HI Count']) / 100) * 100, 100)} 
+                percentage={Math.min((safeGetValue(highlights.mostHI.avgValue) / safeGetValue(highlights.mostHI.maxValue)) * 100, 100)} 
                 color={metricColors[9]}
               />
             </BarContainer>
